@@ -6,7 +6,7 @@ import 'firebase/firestore';
 
 const loadFirebase = () => {
     const firebaseConfig = {
-        apiKey: process.env.FB_API_KEY,
+        apiKey: process.env.NEXT_PUBLIC_FB_API_KEY,
         authDomain: process.env.FB_AUTH_DOMAIN,
         databaseURL: process.env.FB_DATABASE_URL,
         projectId: process.env.FB_PROJECT_ID,
