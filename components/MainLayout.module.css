@@ -1,0 +1,15 @@
+.layout {
+    min-height: 100vh;
+}
+.header {
+    display: flex;
+}
+.logo {
+    margin: 0;
+    padding: 20px;
+    width: 150px;
+}
+.menu {
+    display: flex;
+    flex: auto;
+}
