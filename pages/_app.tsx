@@ -1,8 +1,21 @@
 import 'antd/dist/antd.css';
 import {AuthProvider} from '../services/auth/auth';
+import {useEffect} from 'react';
+import {useRouter} from 'next/router';
 import NextNprogress from 'nextjs-progressbar';
 
 export default function MyApp({Component, pageProps}) {
+    const {events} = useRouter();
+
+    useEffect(() => {
+        const handleRouteChange = (url) => {
+            console.log('App is changing to: ', url);
+        };
+
+        events.on('routeChangeStart', handleRouteChange);
+        return () => events.off('routeChangeStart', handleRouteChange);
+    }, []);
+
     return (
         <>
             <AuthProvider>

@@ -2,7 +2,6 @@ import {Layout, Menu, Row, message} from 'antd';
 import {MainLayout} from '../../components/MainLayout';
 import {useAuth} from '../../services/auth/auth';
 import EmailForm from './components/EmailForm';
-import PasswordForm from './components/PasswordForm';
 import ProfileCard from './components/ProfileCard';
 import ProfileForm from './components/ProfileForm';
 import React, {useEffect, useState} from 'react';
@@ -36,12 +35,6 @@ const Profile = () => {
             .then(() => message.success('Email updated'))
             .catch(() => message.error('Email update failed'));
 
-    const onFinishPasswordForm = ({confirm}) =>
-        user
-            .updatePassword(confirm)
-            .then(() => message.success('Password updated'))
-            .catch(() => message.error('Password update failed'));
-
     const selectedContent = () => {
         switch (selectedKeys[0]) {
             case '1':
@@ -53,8 +46,6 @@ const Profile = () => {
                 );
             case '2':
                 return <EmailForm profile={profile} onFinishEmailForm={onFinishEmailForm} />;
-            case '3':
-                return <PasswordForm onFinishPasswordForm={onFinishPasswordForm} />;
         }
     };
 
@@ -74,7 +65,6 @@ const Profile = () => {
                 >
                     <Menu.Item key="1">Profile</Menu.Item>
                     <Menu.Item key="2">Email</Menu.Item>
-                    <Menu.Item key="3">Password</Menu.Item>
                 </Menu>
             </Sider>
             <Layout style={{padding: '0 24px 24px'}}>

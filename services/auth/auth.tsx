@@ -17,7 +17,7 @@ const useAuth = () => useContext(authContext);
 
 function useProvideAuth(): ProvideAuth {
     const [user, setUser] = useState(null);
-    const {push} = useRouter();
+    const {pathname, push} = useRouter();
 
     const signIn = (email: string, password: string): Promise<void> =>
         loadFirebase()
@@ -30,7 +30,7 @@ function useProvideAuth(): ProvideAuth {
         loadFirebase()
             .auth()
             .createUserWithEmailAndPassword(email, password)
-            .then(() => push('/'))
+            .then(({user}) => user.sendEmailVerification().then(() => push('/auth/verify-email')))
             .catch(console.log);
 
     const signOut = async (): Promise<boolean | void> => loadFirebase().auth().signOut().catch(console.log);
@@ -39,13 +39,25 @@ function useProvideAuth(): ProvideAuth {
         const unsubscribe = loadFirebase()
             .auth()
             .onAuthStateChanged(async (user: User) => {
+                if (!user) {
+                    removeUserCookie();
+                    setUser(null);
+
+                    if (!pathname.includes('/auth')) {
+                        push('/auth/login');
+                    }
+
+                    return;
+                }
+
                 if (user) {
                     const userData = await mapUserData(user);
                     setUserCookie(userData);
                     setUser(user);
-                } else {
-                    removeUserCookie();
-                    setUser(null);
+
+                    if (!user.emailVerified) {
+                        push('/auth/verify-email');
+                    }
                 }
             });
 
