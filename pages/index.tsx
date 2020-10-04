@@ -1,4 +1,4 @@
-// import {getGames} from '../libs/firestore';
+import {getGames} from '../libs/firestore';
 import {Layout, Menu, Card, Rate} from 'antd';
 import {MainLayout} from '../components/MainLayout';
 import Head from 'next/head';
@@ -60,8 +60,7 @@ const Index = ({games}) => {
 };
 
 export async function getStaticProps() {
-    // const games = await getGames();
-    const games = [];
+    const games = await getGames();
 
     return {
         props: {
