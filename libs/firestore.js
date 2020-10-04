@@ -1,23 +1,25 @@
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 
-const serviceAccount =
-    process.env.NODE_ENV === 'production'
-        ? process.env.NEXT_FIRESTORE_SERVICE_KEY
-        : require('../keys/service-key.json');
+// console.log(process.env.NEXT_FIRESTORE_SERVICE_KEY);
 
-if (!admin.apps.length) {
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-        databaseURL: 'https://gameboy-app.firebaseio.com',
-    });
-}
+// const serviceAccount =
+//     process.env.NODE_ENV === 'production'
+//         ? process.env.NEXT_FIRESTORE_SERVICE_KEY
+//         : require('../keys/service-key.json');
 
-const db = admin.firestore();
+// if (!admin.apps.length) {
+//     admin.initializeApp({
+//         credential: admin.credential.cert(serviceAccount),
+//         databaseURL: 'https://gameboy-app.firebaseio.com',
+//     });
+// }
 
-export const getGames = async () => {
-    const snapshot = await db.collection('games').get();
-    const games = [];
-    snapshot.forEach((doc) => games.push({id: doc.id, ...doc.data()}));
+// const db = admin.firestore();
 
-    return games;
-};
+// export const getGames = async () => {
+//     const snapshot = await db.collection('games').get();
+//     const games = [];
+//     snapshot.forEach((doc) => games.push({id: doc.id, ...doc.data()}));
+
+//     return games;
+// };
