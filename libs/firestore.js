@@ -1,10 +1,11 @@
 const admin = require('firebase-admin');
+const atob = require('atob');
 
-console.log(process.env.FIRESTORE_SERVICE_KEY);
+const serviceKey = JSON.parse(atob(process.env.FIRESTORE_SERVICE_KEY));
 
 if (!admin.apps.length) {
     admin.initializeApp({
-        credential: admin.credential.cert(process.env.FIRESTORE_SERVICE_KEY),
+        credential: admin.credential.cert(serviceKey),
         databaseURL: process.env.FB_DATABASE_URL,
     });
 }
