@@ -3,6 +3,7 @@ import {AuthProvider} from '../services/auth/auth';
 import {useEffect} from 'react';
 import {useRouter} from 'next/router';
 import NextNprogress from 'nextjs-progressbar';
+import '../styles/globals.css';
 
 export default function MyApp({Component, pageProps}) {
     const {events} = useRouter();

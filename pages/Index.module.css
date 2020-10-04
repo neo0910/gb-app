@@ -1,0 +1,11 @@
+.gamesList {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.gamePoster {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 250px;
+    width: 100%;
+}

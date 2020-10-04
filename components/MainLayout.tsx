@@ -13,11 +13,11 @@ const MainLayout = ({children}) => {
     const {pathname} = useRouter();
 
     const headerItems = [
-        {key: '1', href: '/', title: 'Application', liStyle: {marginRight: 'auto'}, handler: () => {}},
         {
             handler: () => {},
             href: '/profile',
             key: '2',
+            liStyle: {marginLeft: 'auto'},
             title: <UserOutlined style={{marginRight: 0}} />,
         },
         {
@@ -40,7 +40,9 @@ const MainLayout = ({children}) => {
     return (
         <Layout className={s.layout}>
             <Header className={s.header}>
-                <div className={s.logo} />
+                <Link href="/">
+                    <a className={s.logo}>gb-app</a>
+                </Link>
                 <Menu className={s.menu} theme="dark" mode="horizontal" defaultSelectedKeys={selectedKeys()}>
                     {headerItems.map((item) => (
                         <Menu.Item style={item.liStyle} key={item.key}>
