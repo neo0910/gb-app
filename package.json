@@ -9,6 +9,7 @@
         "serve": "concurrently \"yarn dev\" \"yarn mock\""
     },
     "dependencies": {
+        "@firebase/firestore-types": "^1.13.0",
         "antd": "^4.6.2",
         "firebase": "^7.18.0",
         "firebase-admin": "^9.2.0",

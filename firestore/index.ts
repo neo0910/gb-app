@@ -12,10 +12,4 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-export const getGames = async () => {
-    const snapshot = await db.collection('games').get();
-    const games = [];
-    snapshot.forEach((doc) => games.push({id: doc.id, ...doc.data()}));
-
-    return games;
-};
+export {db};

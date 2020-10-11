@@ -1,7 +1,8 @@
-import {getGames} from '../libs/firestore';
+import {getGames} from '../firestore/games';
 import {Layout, Menu, Card, Rate} from 'antd';
 import {MainLayout} from '../components/MainLayout';
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
 import s from './Index.module.css';
 const {Content, Sider} = Layout;
@@ -36,20 +37,23 @@ const Index = ({games}) => {
                     >
                         <div className={s.gamesList}>
                             {games.map((game) => (
-                                <Card
-                                    key={game.id}
-                                    hoverable
-                                    style={{width: 250, margin: 12}}
-                                    cover={
-                                        <div
-                                            className={s.gamePoster}
-                                            style={{backgroundImage: `url(${game.poster})`}}
-                                        />
-                                    }
-                                >
-                                    <Meta title={game.name} description={game.platform} />
-                                    <Rate disabled defaultValue={game.ranking} />
-                                </Card>
+                                <Link key={game.id} href='/game/[id]' as={`/game/${game.id}`}>
+                                    <a>
+                                        <Card
+                                            hoverable
+                                            style={{width: 250, margin: 12}}
+                                            cover={
+                                                <div
+                                                    className={s.gamePoster}
+                                                    style={{backgroundImage: `url(${game.poster})`}}
+                                                />
+                                            }
+                                        >
+                                            <Meta title={game.name} description={game.platform} />
+                                            <Rate disabled defaultValue={game.ranking} />
+                                        </Card>
+                                    </a>
+                                </Link>
                             ))}
                         </div>
                     </Content>
