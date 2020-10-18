@@ -1,11 +1,12 @@
-const {Header} = Layout;
-import {LogoutOutlined, UserOutlined} from '@ant-design/icons';
+import {AddGameForm} from './add-game-form/AddGameForm';
 import {Layout, Menu} from 'antd';
+import {LogoutOutlined, UserOutlined} from '@ant-design/icons';
 import {useAuth} from '../services/auth/auth';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import React from 'react';
 import s from './MainLayout.module.css';
+const {Header} = Layout;
 
 const MainLayout = ({children}) => {
     // @ts-ignore
@@ -43,6 +44,7 @@ const MainLayout = ({children}) => {
                 <Link href="/">
                     <a className={s.logo}>gb-app</a>
                 </Link>
+                <AddGameForm />
                 <Menu className={s.menu} theme="dark" mode="horizontal" defaultSelectedKeys={selectedKeys()}>
                     {headerItems.map((item) => (
                         <Menu.Item style={item.liStyle} key={item.key}>
