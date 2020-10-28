@@ -8,7 +8,7 @@ import React from 'react';
 import s from './MainLayout.module.css';
 const {Header} = Layout;
 
-const MainLayout = ({children}) => {
+const MainLayout = ({children, genres, platforms}) => {
     // @ts-ignore
     const {signOut} = useAuth();
     const {pathname} = useRouter();
@@ -44,7 +44,7 @@ const MainLayout = ({children}) => {
                 <Link href="/">
                     <a className={s.logo}>gb-app</a>
                 </Link>
-                <AddGameForm />
+                <AddGameForm genres={genres} platforms={platforms} />
                 <Menu className={s.menu} theme="dark" mode="horizontal" defaultSelectedKeys={selectedKeys()}>
                     {headerItems.map((item) => (
                         <Menu.Item style={item.liStyle} key={item.key}>

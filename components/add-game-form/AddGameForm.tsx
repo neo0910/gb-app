@@ -2,17 +2,14 @@ import {Button, Modal, Form, Input, Select} from 'antd';
 import React, {FC, useState} from 'react';
 const {Option} = Select;
 
-const AddGameForm: FC = () => {
+type PropsType = {
+    genres: Array<{name: string; id: string}>;
+    platforms: Array<{name: string; id: string; year: number}>;
+};
+
+const AddGameForm: FC<PropsType> = ({genres, platforms}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [addGameForm] = Form.useForm();
-
-    const genres = [
-        {id: 1, title: 'RPG'},
-        {id: 2, title: 'action'},
-        {id: 3, title: 'sport'},
-        {id: 4, title: 'platform'},
-        {id: 5, title: 'shooter'},
-    ];
 
     const toggleModal = () => setModalVisible(!modalVisible);
 
@@ -37,26 +34,25 @@ const AddGameForm: FC = () => {
                         <Input />
                     </Form.Item>
                     <Form.Item name="genre" label="Genre" rules={[{required: true}]}>
-                        <Select placeholder="Select an option or change input text above" allowClear>
+                        <Select placeholder="Select a genre" allowClear>
                             {genres.map((g) => (
                                 <Option key={g.id} value={g.id}>
-                                    {g.title}
+                                    {g.name}
                                 </Option>
                             ))}
-                            <Option value="other">Other</Option>
                         </Select>
                     </Form.Item>
-                    <Form.Item
-                        noStyle
-                        shouldUpdate={(prevValues, currentValues) => prevValues.genre !== currentValues.genre}
-                    >
-                        {({getFieldValue}) => {
-                            return getFieldValue('genre') === 'other' ? (
-                                <Form.Item name="customizeGenre" label="Customize Genre" rules={[{required: true}]}>
-                                    <Input />
-                                </Form.Item>
-                            ) : null;
-                        }}
+                    <Form.Item name="platform" label="Platform" rules={[{required: true}]}>
+                        <Select placeholder="Select a platform" allowClear>
+                            {platforms.map((p) => (
+                                <Option key={p.id} value={p.id}>
+                                    {p.name}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item name="poster" label="Poster" rules={[{required: true}, {type: 'url'}]}>
+                        <Input />
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit">

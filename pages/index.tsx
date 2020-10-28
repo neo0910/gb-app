@@ -1,4 +1,4 @@
-import {getGames} from '../firestore/games';
+import {getGames, getGenres, getPlatforms} from '../firestore/games';
 import {Layout, Menu, Card, Rate} from 'antd';
 import {MainLayout} from '../components/MainLayout';
 import Head from 'next/head';
@@ -8,9 +8,9 @@ import s from './Index.module.css';
 const {Content, Sider} = Layout;
 const {Meta} = Card;
 
-const Index = ({games}) => {
+const Index = ({games, genres, platforms}) => {
     return (
-        <MainLayout>
+        <MainLayout genres={genres} platforms={platforms}>
             <Head>
                 <title>Games</title>
                 <meta name="description" content="all games page" />
@@ -37,7 +37,7 @@ const Index = ({games}) => {
                     >
                         <div className={s.gamesList}>
                             {games.map((game) => (
-                                <Link key={game.id} href='/game/[id]' as={`/game/${game.id}`}>
+                                <Link key={game.id} href="/game/[id]" as={`/game/${game.id}`}>
                                     <a>
                                         <Card
                                             hoverable
@@ -49,7 +49,7 @@ const Index = ({games}) => {
                                                 />
                                             }
                                         >
-                                            <Meta title={game.name} description={game.platform} />
+                                            <Meta title={game.name} description={game.platform.name} />
                                             <Rate disabled defaultValue={game.ranking} />
                                         </Card>
                                     </a>
@@ -64,11 +64,13 @@ const Index = ({games}) => {
 };
 
 export async function getStaticProps() {
-    const games = await getGames();
+    const [games, genres, platforms] = await Promise.all([getGames(), getGenres(), getPlatforms()]);
 
     return {
         props: {
             games,
+            genres,
+            platforms,
         },
     };
 }
